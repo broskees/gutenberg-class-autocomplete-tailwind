@@ -16,12 +16,15 @@ if (!defined('ABSPATH')) exit; // Exit if accessed directly
 class BetterCustomClassesForGutenberg
 {
 
+  public $assetInfo;
+  public $adminAssetInfo;
+
   /**
    * Constructor function 
    *  - adds asset info from build directory 
    *  - hooks into block editor asset enqueue
    */
-  function __construct()
+  public function __construct()
   {
     $this->assetInfo = include(plugin_dir_path(__FILE__) . 'build/index.asset.php');
     $this->adminAssetInfo = include(plugin_dir_path(__FILE__) . 'build/admin.asset.php');
@@ -43,7 +46,7 @@ class BetterCustomClassesForGutenberg
   }
 
   // Utility for sanitizing an array of class attributes
-  function sanitize_array_of_classes(array $array)
+  public function sanitize_array_of_classes(array $array)
   {
     return array_map('sanitize_html_class', $array);
   }
@@ -51,7 +54,7 @@ class BetterCustomClassesForGutenberg
   /**
    * Enqueue JS for admin page class library 
    */
-  function adminAssets($hook)
+  public function adminAssets($hook)
   {
 
     //var_dump($hook);
@@ -68,13 +71,13 @@ class BetterCustomClassesForGutenberg
    * Enqueue JS for editor 
    * Enqueue custom styles within block editor for added settings pane
    */
-  function editorAssets($hook)
+  public function editorAssets($hook)
   {
     wp_enqueue_script('custom-class-filters', plugin_dir_url(__FILE__) . 'build/index.js', $this->assetInfo['dependencies'], $this->assetInfo['version']);
     wp_enqueue_style('custom-class-styles', plugin_dir_url(__FILE__) . 'build/index.css', array(), $this->assetInfo['version']);
   }
 
-  function on_activate()
+  public function on_activate()
   {
     // OPTIONS SETUP
     // first check if options are already there
@@ -89,7 +92,7 @@ class BetterCustomClassesForGutenberg
     }
   }
 
-  function menu_page()
+  public function menu_page()
   {
     add_submenu_page(
       'tools.php',
@@ -101,7 +104,7 @@ class BetterCustomClassesForGutenberg
     );
   }
 
-  function render_menu_page(){
+  public function render_menu_page(){
     ?>
     <div class="wrap">
       <h1 style="margin-bottom: 16px;">Class Library</h1>
@@ -114,7 +117,7 @@ class BetterCustomClassesForGutenberg
     <?php
   }
 
-  function add_settings()
+  public function add_settings()
   {
     /**
      * Registers a setting for Wordpress 4.7 and higher.
