@@ -12,9 +12,6 @@ const ClassSuggestions = ({inputValue, handleClick, currentClassArray}) => {
     if(inputValue.length > 2){
       (async () => {
         // only classes that match input - we lowercase all just to include suggestions that are not case matched
-        
-        console.log(inputValue)
-
         let filtered = classLibrary?.filter(item => {
           return item.toLowerCase().includes(inputValue.toLowerCase())
         })
