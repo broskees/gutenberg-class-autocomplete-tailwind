@@ -36,8 +36,6 @@ const ClassSuggestions = ({inputValue, handleClick, currentClassArray}) => {
 
   }, [inputValue, classLibrary])
 
-  console.log(suggestions)
-
   return (
     <ul className='bccfg-suggestions'>
       {suggestions?.map(term => (
